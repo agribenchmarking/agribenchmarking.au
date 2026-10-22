@@ -9,9 +9,13 @@ const base = `http://127.0.0.1:${port}`;
 let server;
 
 before(async () => {
-  server = spawn(process.execPath, [fileURLToPath(new URL("../server.mjs", import.meta.url))], {
-    env: { ...process.env, PORT: String(port) },
-  });
+  server = spawn(
+    process.execPath,
+    [fileURLToPath(new URL("../server.mjs", import.meta.url))],
+    {
+      env: { ...process.env, PORT: String(port) },
+    },
+  );
   for (let i = 0; i < 50; i++) {
     try {
       await fetch(base);
@@ -40,7 +44,12 @@ describe("static server", () => {
   });
 
   it("never serves its own source or a dotfile", async () => {
-    for (const path of ["/server.mjs", "/package.json", "/test/page.test.mjs", "/.gitignore"]) {
+    for (const path of [
+      "/server.mjs",
+      "/package.json",
+      "/test/page.test.mjs",
+      "/.gitignore",
+    ]) {
       assert.equal((await fetch(`${base}${path}`)).status, 404, path);
     }
   });

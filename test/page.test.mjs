@@ -4,13 +4,22 @@ import { describe, it } from "node:test";
 
 const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
 const css = await readFile(new URL("../styles.css", import.meta.url), "utf8");
-const script = await readFile(new URL("../cookies.js", import.meta.url), "utf8");
-const privacy = await readFile(new URL("../privacy.html", import.meta.url), "utf8");
+const script = await readFile(
+  new URL("../cookies.js", import.meta.url),
+  "utf8",
+);
+const privacy = await readFile(
+  new URL("../privacy.html", import.meta.url),
+  "utf8",
+);
 const copyright = await readFile(
   new URL("../copyright.html", import.meta.url),
   "utf8",
 );
-const cookies = await readFile(new URL("../cookies.html", import.meta.url), "utf8");
+const cookies = await readFile(
+  new URL("../cookies.html", import.meta.url),
+  "utf8",
+);
 const logo = await readFile(
   new URL("../logos/unimelb-vertical.svg", import.meta.url),
   "utf8",
@@ -48,10 +57,7 @@ describe("platform overview page", () => {
   it("uses a white footer and links privacy, copyright, and cookies", () => {
     assert.match(css, /footer\s*\{[^}]*background:\s*#fff/);
     assert.match(css, /footer\s*\{[^}]*border-top:\s*1px solid var\(--line\)/);
-    assert.match(
-      css,
-      /\.section-collaborators\s*\{[^}]*background:\s*#fff/,
-    );
+    assert.match(css, /\.section-collaborators\s*\{[^}]*background:\s*#fff/);
     const footer = html.slice(html.indexOf("<footer"));
     assert.match(footer, /href="privacy\.html"/);
     assert.match(footer, /href="copyright\.html"/);
@@ -77,6 +83,9 @@ describe("platform overview page", () => {
     assert.match(css, /\.uni-mark\s*\{[^}]*padding:\s*24px/);
     assert.match(css, /\.uni-mark img\s*\{[^}]*width:\s*112px/);
     assert.match(css, /\.uni-mark img\s*\{[^}]*height:\s*112px/);
-    assert.doesNotMatch(css, /\.uni-mark img\s*\{[^}]*(filter|border-radius:\s*(?!0)\d)/);
+    assert.doesNotMatch(
+      css,
+      /\.uni-mark img\s*\{[^}]*(filter|border-radius:\s*(?!0)\d)/,
+    );
   });
 });
