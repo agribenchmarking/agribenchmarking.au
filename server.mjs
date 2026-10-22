@@ -19,7 +19,14 @@ const types = {
 const server = createServer(async (request, response) => {
   const url = new URL(request.url ?? "/", "http://127.0.0.1");
   const pathname = url.pathname === "/" ? "/index.html" : url.pathname;
-  const file = normalize(join(root, decodeURIComponent(pathname)));
+  let file;
+  try {
+    file = normalize(join(root, decodeURIComponent(pathname)));
+  } catch {
+    // A malformed escape (`/%E0%A4%A`) throws; uncaught, it ends the process.
+    response.writeHead(400).end();
+    return;
+  }
   if (
     file !== root &&
     !file.startsWith(root.endsWith(sep) ? root : root + sep)
@@ -27,10 +34,16 @@ const server = createServer(async (request, response) => {
     response.writeHead(403).end();
     return;
   }
+  // Only the site's own file types: never server.mjs, package.json, the
+  // tests, or a dotfile (`.env`, `.git/`), which all live under root too.
+  if (!Object.hasOwn(types, extname(file))) {
+    response.writeHead(404).end("Not found");
+    return;
+  }
   try {
     const body = await readFile(file);
     response.writeHead(200, {
-      "content-type": types[extname(file)] ?? "application/octet-stream",
+      "content-type": types[extname(file)],
     });
     response.end(body);
   } catch {
