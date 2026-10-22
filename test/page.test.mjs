@@ -47,6 +47,11 @@ describe("platform overview page", () => {
 
   it("uses a white footer and links privacy, copyright, and cookies", () => {
     assert.match(css, /footer\s*\{[^}]*background:\s*#fff/);
+    assert.match(css, /footer\s*\{[^}]*border-top:\s*1px solid var\(--line\)/);
+    assert.match(
+      css,
+      /\.section-collaborators\s*\{[^}]*background:\s*#fff/,
+    );
     const footer = html.slice(html.indexOf("<footer"));
     assert.match(footer, /href="privacy\.html"/);
     assert.match(footer, /href="copyright\.html"/);
