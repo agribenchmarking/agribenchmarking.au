@@ -4,10 +4,6 @@ import { describe, it } from "node:test";
 
 const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
 const css = await readFile(new URL("../styles.css", import.meta.url), "utf8");
-const script = await readFile(
-  new URL("../cookies.js", import.meta.url),
-  "utf8",
-);
 const privacy = await readFile(
   new URL("../privacy.html", import.meta.url),
   "utf8",
@@ -62,18 +58,18 @@ describe("platform overview page", () => {
     assert.match(footer, /href="privacy\.html"/);
     assert.match(footer, /href="copyright\.html"/);
     assert.match(footer, /href="cookies\.html"/);
-    assert.match(html, /id="cookie-bar"/);
-    assert.match(html, /id="cookie-accept"/);
-    assert.match(script, /ahb_cookie_choice=accepted/);
-    assert.match(script, /addEventListener\(\s*"click"/);
-    assert.doesNotMatch(script, /google-analytics|gtag|facebook|doubleclick/i);
+    for (const page of [html, privacy, copyright, cookies]) {
+      assert.doesNotMatch(page, /cookie-bar|cookies\.js/);
+      assert.doesNotMatch(page, /google-analytics|gtag|facebook|doubleclick/i);
+    }
     assert.match(privacy, /Privacy and Data Protection\s+Act\s+2014/);
     assert.match(privacy, /MPF1104/);
+    assert.doesNotMatch(privacy, /press Accept/);
     assert.match(privacy, /https:\/\/www\.unimelb\.edu\.au\/privacy/);
     assert.doesNotMatch(privacy, /Smart Fertiliser/i);
     assert.match(copyright, /https:\/\/copyright\.unimelb\.edu\.au\//);
-    assert.match(cookies, /ahb_cookie_choice/);
-    assert.match(cookies, /does not use advertising or analytics cookies/i);
+    assert.doesNotMatch(cookies, /ahb_cookie_choice/);
+    assert.match(cookies, /This\s+site\s+does\s+not\s+set\s+any\s+cookies/);
   });
 
   it("uses the vertical housed University mark at full size with clear space", () => {
