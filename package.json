@@ -1,0 +1,10 @@
+{
+  "name": "agribenchmarking",
+  "private": true,
+  "description": "Public site for www.agribenchmarking.au. Outside the pnpm workspace so it can move to its own repository.",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "test": "node --test test/page.test.mjs"
+  }
+}
