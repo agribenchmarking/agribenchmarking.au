@@ -67,7 +67,7 @@ describe("platform overview page", () => {
     assert.match(script, /ahb_cookie_choice=accepted/);
     assert.match(script, /addEventListener\(\s*"click"/);
     assert.doesNotMatch(script, /google-analytics|gtag|facebook|doubleclick/i);
-    assert.match(privacy, /Privacy and Data Protection\s+Act 2014/);
+    assert.match(privacy, /Privacy and Data Protection\s+Act\s+2014/);
     assert.match(privacy, /MPF1104/);
     assert.match(privacy, /https:\/\/www\.unimelb\.edu\.au\/privacy/);
     assert.doesNotMatch(privacy, /Smart Fertiliser/i);
