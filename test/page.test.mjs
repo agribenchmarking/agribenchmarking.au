@@ -45,9 +45,17 @@ describe("platform overview page", () => {
       html.indexOf('id="collaborators"'),
       html.indexOf("<footer"),
     );
-    assert.match(partners, /logos\/agrifutures\.png/);
-    assert.match(partners, /logos\/csu\.png/);
-    assert.match(partners, /logos\/hga\.jpg/);
+    assert.match(partners, /The University of Melbourne leads the platform/);
+    assert.doesNotMatch(partners, /class="marquee"/);
+    assert.doesNotMatch(partners, /logos\/agrifutures\.png/);
+    assert.doesNotMatch(partners, /logos\/csu\.png/);
+    assert.doesNotMatch(partners, /logos\/hga\.jpg/);
+    assert.match(html, /logos\/platform-mark\.svg/);
+    assert.match(html, /rel="icon" href="logos\/platform-mark\.svg"/);
+    for (const page of [privacy, copyright, cookies]) {
+      assert.match(page, /logos\/platform-mark\.svg/);
+      assert.match(page, /rel="icon" href="logos\/platform-mark\.svg"/);
+    }
   });
 
   it("uses a white footer and links privacy, copyright, and cookies", () => {

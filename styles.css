@@ -65,9 +65,19 @@ button:focus-visible {
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
   color: var(--ink);
   font-weight: 700;
   text-decoration: none;
+}
+
+.brand img {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  flex: none;
 }
 
 .nav {
