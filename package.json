@@ -3,8 +3,7 @@
   "private": true,
   "description": "Public site for www.agribenchmarking.au. Outside the pnpm workspace so it can move to its own repository.",
   "scripts": {
-    "dev": "node server.mjs",
-    "start": "node server.mjs",
+    "dev": "python3 -m http.server 3010 --bind 127.0.0.1",
     "test": "node --test \"test/*.test.mjs\""
   }
 }
