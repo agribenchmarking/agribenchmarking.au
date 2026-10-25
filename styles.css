@@ -14,6 +14,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 4.25rem;
 }
 
 body {
@@ -105,6 +106,7 @@ button:focus-visible {
   min-height: 78svh;
   padding: 6.5rem 0 4rem;
   overflow: hidden;
+  background: #1d2a1d;
   color: #fff;
 }
 
